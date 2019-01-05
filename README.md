@@ -8,6 +8,10 @@ A module for creating static websites hosted in S3 and distributed through cloud
 module "static_site" {
   source = "git::https://github.com/george-richardson/terraform_s3_cloudfront_static_site.git?ref=1.0.0"
 
+  providers {
+    aws.useast1 = "aws.useast1"
+  }
+
   name           = "test.example.com"
   hosted_zone_id = "${var.hosted_zone_id}"
 
@@ -16,6 +20,8 @@ module "static_site" {
   }
 }
 ```
+
+You need to include the providers block as ACM certificates for cloudfront distributions must be in the US-East-1 region and so needs a different provider that is able to access this region independent of the region chosen for the other resources. More info on using multiple providers for modules can be found in the [terraform documentation](https://www.terraform.io/docs/modules/usage.html#providers-within-modules).
 
 # Variables
 
