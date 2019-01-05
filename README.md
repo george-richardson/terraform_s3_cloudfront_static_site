@@ -6,7 +6,7 @@ A module for creating static websites hosted in S3 and distributed through cloud
 
 ```
 module "static_site" {
-  source = "git::https://github.com/george-richardson/terraform_s3_cloudfront_static_site.git?ref=1.0.0"
+  source = "git::https://github.com/george-richardson/terraform_s3_cloudfront_static_site.git?ref=1.0.2"
 
   providers {
     aws.useast1 = "aws.useast1"
