@@ -1,4 +1,4 @@
-# Certificats used for cloudfront must be in the us-east-1 region
+# Certificates used for cloudfront must be in the us-east-1 region
 resource "aws_acm_certificate" "site_certificate" {
   provider = "aws.useast1"
 

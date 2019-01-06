@@ -25,3 +25,9 @@ variable "default_root_object" {
   description = "The default root object to serve through the cloudfront distibution. e.g. index.html"
   default     = "index.html"
 }
+
+variable "error_404_object" {
+  type        = "string"
+  description = "The object to serve when there is a 404 not found. e.g. /404.html. Note this requires a '/' prefix."
+  default     = "/404.html"
+}

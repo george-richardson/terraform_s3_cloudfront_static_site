@@ -5,6 +5,13 @@ resource "aws_cloudfront_distribution" "site_distribution" {
   tags                = "${var.tags}"
   default_root_object = "${var.default_root_object}"
 
+  custom_error_response {
+    error_code            = 403                       # S3 returns a 403 when an object is not found.
+    response_page_path    = "${var.error_404_object}"
+    response_code         = 404
+    error_caching_min_ttl = 300
+  }
+
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]

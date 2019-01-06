@@ -35,6 +35,8 @@ You need to include the providers block as ACM certificates for cloudfront distr
   Tags to add to any resources that support them.
 * `default_root_object`  
   The default root object to serve through the cloudfront distibution. e.g. index.html
+* `error_404_object`  
+  The object to serve when there is a 404 not found. e.g. /404.html. Note this requires a '/' prefix.
 
 # Outputs
 
