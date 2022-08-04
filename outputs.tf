@@ -1,7 +1,7 @@
 output "bucket_id" {
-  value = "${aws_s3_bucket.site_bucket.id}"
+  value = aws_s3_bucket.origin.id
 }
 
 output "distribution_id" {
-  value = "${aws_cloudfront_distribution.site_distribution.id}"
+  value = aws_cloudfront_distribution.distribution.id
 }
