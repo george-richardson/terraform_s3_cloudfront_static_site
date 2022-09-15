@@ -16,7 +16,7 @@ resource "aws_s3_bucket_policy" "origin" {
 data "aws_iam_policy_document" "origin_bucket_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["arn:aws:s3:::${var.name}/*"]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.origin.bucket}/*"]
 
     principals {
       type        = "AWS"
