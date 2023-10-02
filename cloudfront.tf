@@ -29,12 +29,9 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.origin.bucket_regional_domain_name
-    origin_id   = var.name
-
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
-    }
+    domain_name              = aws_s3_bucket.origin.bucket_regional_domain_name
+    origin_id                = var.name
+    origin_access_control_id = aws_cloudfront_origin_access_control.origin.id
   }
 
   restrictions {
@@ -49,6 +46,9 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  comment = "Access identity for ${var.name}"
+resource "aws_cloudfront_origin_access_control" "origin" {
+  name                              = var.name
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }

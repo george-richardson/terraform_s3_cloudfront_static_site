@@ -3,11 +3,6 @@ resource "aws_s3_bucket" "origin" {
   tags   = var.tags
 }
 
-resource "aws_s3_bucket_acl" "origin" {
-  bucket = aws_s3_bucket.origin.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_policy" "origin" {
   bucket = aws_s3_bucket.origin.id
   policy = data.aws_iam_policy_document.origin_bucket_policy.json
@@ -19,8 +14,14 @@ data "aws_iam_policy_document" "origin_bucket_policy" {
     resources = ["arn:aws:s3:::${aws_s3_bucket.origin.bucket}/*"]
 
     principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn]
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.distribution.arn]
     }
   }
 }
